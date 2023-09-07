@@ -12,6 +12,6 @@ def get_carwash_simulation_task(parameters: simulation_carwash.CarwashParameters
     env_result = simulation_carwash.run_carwash_example(
         channel=channel, **parameters.model_dump()
     )
-    # env_result = simulation_carwash.run_carwash_example(**parameters.model_dump())
+
     connection.close()
     return env_result.events

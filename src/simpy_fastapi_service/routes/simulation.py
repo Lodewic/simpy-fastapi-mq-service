@@ -27,23 +27,9 @@ async def start_carwash_example_task(parameters: CarwashParameters = Depends()):
     return {"task_id": task.id}
 
 
-#
-# @router.get("/carwash/task")
-# def start_carwash_example_task(parameters: CarwashParameters = Depends()) -> list[dict[str, Any]]:
-#     task = carwash_example_task.delay(parameters)
-#
-#     return task
-
-
 @router.get("/task/{task_id}")
 async def get_task_status(task_id: str) -> dict:
     """
     Return the status of the submitted Task
     """
     return get_task_info(task_id)
-
-
-# @celery.task
-# def carwash_example_task(parameters: CarwashParameters):
-#     result_env = run_carwash_example(**parameters.dict())
-#     return result_env.events
