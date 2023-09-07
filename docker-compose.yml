@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+  api:
+    build:
+      context: .
+    environment:
+      - C_FORCE_ROOT=1
+      - FORKED_BY_MULTIPROCESSING=1
+      - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672//
+    ports:
+      - 8080:8080
+      - 5555:5555
+    volumes:
+      - ./:/app/
+    depends_on:
+      - rabbitmq
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - 15672:15672
+      - 5672:5672

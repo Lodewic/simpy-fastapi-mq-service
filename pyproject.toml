@@ -1,0 +1,41 @@
+[tool.pytest.ini_options]
+addopts = """
+./src/tests/
+--cov-report term-missing \
+--cov simpy_fastapi_service -ra"""
+
+[tool.coverage.report]
+fail_under = 0
+show_missing = true
+exclude_lines = ["pragma: no cover", "raise NotImplementedError"]
+
+[tool.ruff]
+select = [
+    "F",  # Pyflakes
+    "E",  # Pycodestyle
+    "W",  # Pycodestyle
+    "UP",  # pyupgrade
+    "I",  # isort
+    "PL", # Pylint
+]
+ignore = ["E501"]  # Black take care off line-too-long
+[tool.ruff.per-file-ignores]
+"./**.ipynb" = ["F821", "F704", "E402", "PLE1142"]
+
+[tool.ruff.pylint]
+max-args = 10
+
+[tool.ruff.isort]
+known-first-party = ["simpy_fastapi_service"]
+
+[tool.ruff.flake8-tidy-imports]
+# Disallow all relative imports.
+ban-relative-imports = "all"
+
+[tool.black]
+line_length = 88
+
+[tool.mypy]
+ignore_missing_imports = true
+exclude = [".venv"]
+allow_redefinition = true
