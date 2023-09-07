@@ -13,16 +13,14 @@ router = APIRouter()
 def get_carwash_example(
     parameters: CarwashParameters = Depends(),
 ) -> list[dict[str, Any]]:
+    """Run simulation normally and synchronously."""
     result_env = run_carwash_example(**parameters.dict())
     return result_env.events
 
 
 @router.post("/carwashTask")
 async def start_carwash_example_task(parameters: CarwashParameters = Depends()):
-    """
-    Return the List of universities for the countries for e.g ["turkey","india","australia"] provided
-    in input in a async way. It just returns the task id, which can later be used to get the result.
-    """
+    """Trigger a task to run the simulation with a Celery worker."""
     task = get_carwash_simulation_task.delay(parameters)
     return {"task_id": task.id}
 
