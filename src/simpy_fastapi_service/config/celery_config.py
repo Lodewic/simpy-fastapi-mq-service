@@ -1,5 +1,6 @@
 import os
 from functools import lru_cache
+
 from kombu import Queue
 
 
@@ -11,10 +12,12 @@ def route_task(name, args, kwargs, options, task=None, **kw):
 
 
 class BaseConfig:
-    CELERY_BROKER_URL: str = os.environ.get("CELERY_BROKER_URL", "amqp://guest:guest@rabbitmq:5672//")
+    CELERY_BROKER_URL: str = os.environ.get(
+        "CELERY_BROKER_URL", "amqp://guest:guest@rabbitmq:5672//"
+    )
     CELERY_RESULT_BACKEND: str = os.environ.get("CELERY_RESULT_BACKEND", "rpc://")
 
-    CELERY_TASK_QUEUES: list = (
+    CELERY_TASK_QUEUES: tuple = (
         # default queue
         Queue("celery"),
         # custom queue
@@ -28,7 +31,7 @@ class DevelopmentConfig(BaseConfig):
     pass
 
 
-@lru_cache()
+@lru_cache
 def get_settings():
     config_cls_dict = {
         "development": DevelopmentConfig,

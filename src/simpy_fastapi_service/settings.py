@@ -1,12 +1,11 @@
 from functools import lru_cache
-from typing import Any, Dict, List, Optional, Union
 
-from pydantic import PostgresDsn, field_validator
 from pydantic_settings import BaseSettings
 
 # class Psycopg3Dsn(PostgresDsn):
 #     """Subclass of PostgresDsn that also allows 'postgreql+psycopg' urls."""
 #     allowed_schemes = {"postgresql+psycopg", *PostgresDsn.allowed_schemes}
+
 
 class Settings(BaseSettings):
     TOKEN_SECRET_KEY: str = ""
@@ -18,6 +17,7 @@ class Settings(BaseSettings):
         env_file = ".env"
         case_sensitive = True
 
-@lru_cache()
+
+@lru_cache
 def get_settings() -> Settings:
     return Settings()

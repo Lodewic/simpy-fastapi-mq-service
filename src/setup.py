@@ -27,7 +27,8 @@ setup(
     name="simpy_fastapi_service",
     version=__version__,
     packages=find_packages(
-        include=["simulation_core", "simpy_fastapi_service"], exclude=["tests", "requirements"]
+        include=["simulation_core", "simpy_fastapi_service"],
+        exclude=["tests", "requirements"],
     ),
     install_requires=core_requires,
     extras_require={

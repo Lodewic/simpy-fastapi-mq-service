@@ -6,13 +6,12 @@ from pathlib import Path
 import yaml
 
 from simpy_fastapi_service.app import get_app
-from simpy_fastapi_service.settings import get_settings
 from simpy_fastapi_service.config.celery_utils import create_celery
-
+from simpy_fastapi_service.settings import get_settings
 
 # Setting up the application logger
-logging_conf = os.getenv("LOGGER_CONF", Path(__file__).parent / "logging.yaml")
-with open(logging_conf, "rt") as f:
+logging_conf = os.getenv("LOGGER_CONF", str(Path(__file__).parent / "logging.yaml"))
+with open(logging_conf) as f:
     log_config = yaml.safe_load(f)
 logging.config.dictConfig(log_config)
 
@@ -27,7 +26,7 @@ if __name__ == "__main__":
     instead of `uvicorn src.simpy_fastapi_service.main:app"""
     import uvicorn
 
-    if sys.platform == "win32" or sys.platform == "win64":
+    if sys.platform in ("win32", "win64"):
         import asyncio
 
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())

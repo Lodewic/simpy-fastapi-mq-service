@@ -2,13 +2,13 @@
 
 The goal here is to create a FastAPI service that can execute long-running SimPy simulations.
 
-The simulations are executed using Celery workers, therefore not blocking the API itself 
+The simulations are executed using Celery workers, therefore not blocking the API itself
 and set up to be scalable in the future. Initiating a simulating through the API service
 will start a task on the worker, and return the `task_id` to the user. When the Task is finished,
 it can be collected through the `task_id`.
 
 Additionally, while the Task is running, we will want to publish simulation events to
-a pub/sub stream. Currently, this example can publish the events during simulation but 
+a pub/sub stream. Currently, this example can publish the events during simulation but
 has not been tested with a consumer.
 
 Next steps are to think about how to publish simulation events properly and persistent.
@@ -39,7 +39,7 @@ Then access the components through these links:
   - user/password = `guest`/`guest`
 - **Flower UI** to track tasks: http://127.0.0.1:5555
 
-## Development 
+## Development
 
 ### Install pre-commit
 

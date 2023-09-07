@@ -10,6 +10,7 @@ class CarwashParameters(BaseModel):
     T_INTER: int = 7
     SIM_TIME: int = 20
 
+
 class LoggingEnvironment(simpy.Environment):
     def __init__(self, initial_time: int = 0, channel=None):
         super().__init__(initial_time=initial_time)
@@ -27,7 +28,9 @@ class LoggingEnvironment(simpy.Environment):
 
         # Works for no meter because I don't understand publishing to queues:)
         if self.channel is not None:
-            self.channel.basic_publish(exchange='topic_simulation', routing_key='', body=str(event))
+            self.channel.basic_publish(
+                exchange="topic_simulation", routing_key="", body=str(event)
+            )
             print(f"Sent {event} to {self.channel}")
 
         # add message to state
@@ -83,7 +86,7 @@ def run_carwash_example(
     WASHTIME: int = 5,  # Minutes it takes to clean a car
     T_INTER: int = 7,  # Create a car every ~7 minutes
     SIM_TIME: int = 20,  # Simulation time in minutes
-    channel=None
+    channel=None,
 ):
     """
     Carwash example.
